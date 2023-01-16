@@ -1,0 +1,11 @@
+E:\Файлы VS\ИТ_Курсач\ИТ_Курсач\bin\Debug\ИТ_Курсач.exe.config
+E:\Файлы VS\ИТ_Курсач\ИТ_Курсач\bin\Debug\ИТ_Курсач.exe
+E:\Файлы VS\ИТ_Курсач\ИТ_Курсач\bin\Debug\ИТ_Курсач.pdb
+E:\Файлы VS\ИТ_Курсач\ИТ_Курсач\obj\Debug\ИТ_Курсач.csproj.AssemblyReference.cache
+E:\Файлы VS\ИТ_Курсач\ИТ_Курсач\obj\Debug\ИТ_Курсач.csproj.SuggestedBindingRedirects.cache
+E:\Файлы VS\ИТ_Курсач\ИТ_Курсач\obj\Debug\ИТ_Курсач.Form1.resources
+E:\Файлы VS\ИТ_Курсач\ИТ_Курсач\obj\Debug\ИТ_Курсач.Properties.Resources.resources
+E:\Файлы VS\ИТ_Курсач\ИТ_Курсач\obj\Debug\ИТ_Курсач.csproj.GenerateResource.cache
+E:\Файлы VS\ИТ_Курсач\ИТ_Курсач\obj\Debug\ИТ_Курсач.csproj.CoreCompileInputs.cache
+E:\Файлы VS\ИТ_Курсач\ИТ_Курсач\obj\Debug\ИТ_Курсач.exe
+E:\Файлы VS\ИТ_Курсач\ИТ_Курсач\obj\Debug\ИТ_Курсач.pdb
