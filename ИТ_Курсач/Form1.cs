@@ -18,6 +18,7 @@ namespace ИТ_Курсач
         public Form1()
         {
             InitializeComponent();
+           
         }
 
         private int viruses = 0;
@@ -26,30 +27,22 @@ namespace ИТ_Курсач
         {
 
         }
-        static string CalculateMD5(string filename)
+        static  List<Segment> Test(string fileName)
         {
-            using (var md5 = MD5.Create())
-            {
-                using (var stream = File.OpenRead(filename))
-                {
-                    var hash = md5.ComputeHash(stream);
-                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant(); // конвертация в 16 
-                }
-            }
-        }
-        static string HashSHA1(string filename)
-        {
+            var list = new List<Segment>();
 
-            using (var sha1 = SHA1Managed.Create())
+            using (var hasher = new SHA256Managed())
             {
-                using (var stream = File.OpenRead(filename))
+                var streamBreaker = new StreamMy();
+                using (var file = new FileStream(fileName, FileMode.Open, FileAccess.Read))
                 {
-                    var hash = sha1.ComputeHash(stream);
-                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant(); // конвертация в 16 
+                    list.AddRange(streamBreaker.GetSegments(file, file.Length, hasher));
                 }
             }
-          
+
+            return list;
         }
+
         static string HashSHA256(string filename)
         {
 
@@ -57,12 +50,33 @@ namespace ИТ_Курсач
             {
                 using (var stream = File.OpenRead(filename))
                 {
-                    var hash = sha256.ComputeHash(stream);
-                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant(); // конвертация в 16 
+                   
+                    List<Segment> listSegment = Test(filename);
+
+                    string signature = "";
+
+
+
+                    foreach ( var file in listSegment )
+                    {
+                       
+                           signature += BitConverter.ToString(file.Hash).Replace("-", "").ToLowerInvariant() + " ";
+                     
+                    }
+                   // MessageBox.Show(signature  + " " + filename );
+
+                    // var hash = sha256.ComputeHash(stream);
+
+
+
+                    // return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant(); // конвертация в 16 
+                    return signature;
                 }
             }
 
         }
+      
+
         private void scanButton_Click(object sender, EventArgs e)
         {
             viruses = 0;
@@ -81,46 +95,22 @@ namespace ИТ_Курсач
 
                     string read = stream.ReadToEnd();
 
-                    string[] virusMD5 = new string[] {
-                        "e94c782487c45e05daa15b57afa20889" , "c9693388f76469e05257f698675d93c1" ,
-                        "b59bc37d6441d96785bda7ab2ae98f75" , "4424c7d314027baa42379860b24cef22",
-                        "8efd9a3429817db5ee742fa2177e99df"};
-
-
-
-
-                    string[] virusSHA1 = new string[] { "" +
-                        "319cf082e242fec1b5df1bfba3aa4e5755196857", "48da403ce7d0b0a18956d9b62a72c0e99b6adf0e",
-                        "9cf278fa132bb5c546c2f45f50d7ce7edd2cfe43" ,"4ee6978b82fa0540e37704c9b659f9aa45996fae",
-                        "ec23cf7aa6dff4b7214cfe90f467ee90e20f9430" , "283a7c774bcdc99085ba7193427d9915428ed84c"};
-
+                
                     string[] virusSHA256 = new string[] {
 
                         "912d70844a72211d1113bbcaba6b0fc6507946235c557d3680b16eaf82443cee",
                         "37fb477df0125023ad9f66d5c52fd723b7d100c89da944d6ff07d504c3f4e43c",
                         "bf96648169ba89c284b3e94108074c7d5e5806c7b9498031aceded5ca139ed69",
                         "ed196ed82fa6ab0c1487cc64ac19fa3694404ec6a8fb4ffb7bcb2a14b5361790",
-                        "cfdb3838ab8a096b5df680a841cc651a5b385a43dab58eb26263b0c20b2c7e22"};
+                        "cfdb3838ab8a096b5df680a841cc651a5b385a43dab58eb26263b0c20b2c7e22",
+                        "9f2d7d369", "71d3e489" , "862742" , "0ffe1abd1a0" ,"28b57"
+                    };
 
-                    foreach (string st in virusMD5)
+                    foreach (string st in virusSHA256)
                     {
 
-                        if ( CalculateMD5(item).Equals(st) )
-                        {
-                            viruses += 1;
-                            listBox1.Items.Add(item);
-                            progressBar1.Increment(1);
-                        }
                       
-
-                        else if (HashSHA1(item).Equals(st))
-                        {
-                            viruses += 1;
-                            listBox1.Items.Add(item);
-                            progressBar1.Increment(1);
-                        }
-                       
-                        else if (HashSHA256(item).Equals(st))
+                        if (HashSHA256(item).Contains(st))
                         {
                             viruses += 1;
                             listBox1.Items.Add(item);
@@ -169,7 +159,7 @@ namespace ИТ_Курсач
             listBox1.Items.Clear();
             progressBar1.Show();
 
-            label3.Hide(); //  подсказка 
+            label3.Hide(); 
             label4.Show();
             label6.Show();
             scanButton.Show();
@@ -233,6 +223,18 @@ namespace ИТ_Курсач
         }
 
         private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+     
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
